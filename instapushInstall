@@ -1,0 +1,9 @@
+#!/bin/bash
+mkdir /opt/user/config/instapush
+cp /opt/piget/instapush/default/instapush.json /opt/user/config/instapush/instapush.json
+messagebox "Go to https://instapush.im/dashboard/ and go to your Events / Basic Info"
+read -r -p "Application ID:" id
+replaceLine "/opt/user/config/instapush/instapush.json" "id" "\"id\": \"$id\" " "{"
+read -r -p "Application Secret:" secret
+replaceLine "/opt/user/config/instapush/instapush.json" "secret" "\"secret\": \"$secret\" " "id"
+cat /opt/user/config/instapush/instapush.json

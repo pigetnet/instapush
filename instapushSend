@@ -1,0 +1,18 @@
+#!/bin/bash
+if [ $# -eq 2 ];then
+	event=$1
+	message=$2
+	id=$(cat "/opt/user/config/instapush/instapush.json"|getJson id)
+	secret=$(cat "/opt/user/config/instapush/instapush.json"|getJson secret)
+
+	curl -X POST \
+    	       -H "x-instapush-appid: $id" \
+    	       -H "x-instapush-appsecret: $secret" \
+                    -H "Content-Type: application/json" \
+                    -d "{\"event\":\"$event\",\"trackers\":{\"message\":\"$message\"}}" \
+                    https://api.instapush.im/post
+else
+	errorBox "Wrong number of arguments"
+	usage 'instapush event message'
+	example 'instapush "MyInstaPushEvent" "This is a test"' 
+fi
