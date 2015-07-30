@@ -5,6 +5,7 @@ if [ $# -eq 2 ];then
 	id=$(cat "/opt/user/config/instapush/instapush.json"|getJson id)
 	secret=$(cat "/opt/user/config/instapush/instapush.json"|getJson secret)
 
+	/show/listecho "Send $message -> $event"
 	curl -X POST \
     	       -H "x-instapush-appid: $id" \
     	       -H "x-instapush-appsecret: $secret" \
@@ -12,7 +13,7 @@ if [ $# -eq 2 ];then
                     -d "{\"event\":\"$event\",\"trackers\":{\"message\":\"$message\"}}" \
                     https://api.instapush.im/post
 else
-	errorBox "Wrong number of arguments"
-	usage 'instapush event message'
-	example 'instapush "MyInstaPushEvent" "This is a test"' 
+	/show/errorBox "Wrong number of arguments"
+	/show/usage '/do/instapush/send event message'
+	/show/example '/do/instapush/send "MyInstaPushEvent" "This is a test"' 
 fi

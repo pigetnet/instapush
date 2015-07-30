@@ -1,0 +1,11 @@
+#!/bin/bash
+/show/description "Install instapush client"
+/system/makedir /opt/user/config/instapush
+/show/listecho "Copy default configuration" $OK
+cp /opt/piget/instapush/default/instapush.json /opt/user/config/instapush/instapush.json
+/show/listecho "Go to https://instapush.im/dashboard/ and go to your App / Basic Info" $WARN
+read -r -p "Application ID:" id
+/string/replaceLine "/opt/user/config/instapush/instapush.json" "id" "\"id\": \"$id\", " "{"
+read -r -p "Application Secret:" secret
+/string/replaceLine "/opt/user/config/instapush/instapush.json" "secret" "\"secret\": \"$secret\" " "id"
+/show/file /opt/user/config/instapush/instapush.json
