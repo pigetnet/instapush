@@ -2,8 +2,8 @@
 if [ $# -eq 2 ];then
 	event=$1
 	message=$2
-	id=$(cat "/opt/user/config/instapush/instapush.json"|getJson id)
-	secret=$(cat "/opt/user/config/instapush/instapush.json"|getJson secret)
+	id=$(cat "/opt/user/config/instapush/instapush.json"|/string/getJson id)
+	secret=$(cat "/opt/user/config/instapush/instapush.json"|/string/getJson secret)
 
 	/show/listecho "Send $message -> $event"
 	curl -X POST \
